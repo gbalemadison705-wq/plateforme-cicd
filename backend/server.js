@@ -8,6 +8,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const { initDatabase } = require('./src/config/initDatabase');
 
 // Importation des routes
 const authRoutes = require('./src/routes/auth');
@@ -96,6 +97,11 @@ app.listen(PORT, () => {
   console.log('─────────────────────────────────────────');
   console.log('✅ Pret a recevoir des requetes !');
   console.log('');
+});
+
+// Initialiser la base de données
+initDatabase().catch(err => {
+  console.error('❌ Erreur initialisation DB:', err.message);
 });
 
 // Gestion propre de l arret
